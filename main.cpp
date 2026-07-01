@@ -2,11 +2,11 @@
 #include <Windows.h> 
 using namespace std;
 
-wstring tetrimonos[7];
-int PlayfieldWidth = 12;
-int PlayfieldHeight = 18;
-int ScreenWidth = 80;
-int ScreenHeight = 30;
+wstring tetrimonos[7]; //tetris figures
+int PlayfieldWidth = 12; // width of the arena
+int PlayfieldHeight = 18; // height of the area
+int ScreenWidth = 80; // width of the console
+int ScreenHeight = 30; // height of the console
 unsigned char *pField = nullptr;
 
 int Rotation(int px, int py, int r) {
@@ -67,6 +67,23 @@ int main() {
 		for (int j = 0; j < PlayfieldHeight; j++) {
 			pField[j * PlayfieldWidth + i] = (i == 0 || i == PlayfieldWidth - 1 || j == PlayfieldHeight - 1) ? 9 : 0;
 		}
+	}
+
+	// creates a screen buffer
+	wchar_t *screen = new wchar_t[ScreenWidth * ScreenHeight];
+	for (int i = 0; i < ScreenWidth * ScreenHeight; i++) screen[i] = L' ';
+	HANDLE Console = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
+	SetConsoleActiveScreenBuffer(Console);
+	DWORD dwBytesWritten = 0;
+
+	bool GameOver = false;
+	while (!GameOver) {
+		//drawing the field
+		
+
+
+		// display frame
+		WriteConsoleOutputCharacter(Console, screen, ScreenWidth * ScreenHeight, { 0,0 }, &dwBytesWritten);
 	}
 	
 
