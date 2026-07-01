@@ -25,6 +25,19 @@ int Rotation(int px, int py, int r) {
 }
 
 int main() {
+
+	// creates a screen buffer
+	wchar_t *screen = new wchar_t[ScreenWidth * ScreenHeight];
+	for (int i = 0; i < ScreenWidth * ScreenHeight; i++) screen[i] = L' ';
+	HANDLE Console = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
+	SetConsoleActiveScreenBuffer(Console);
+	DWORD dwBytesWritten = 0;
+
+	// Forces the console window to be a specific size
+	SMALL_RECT rect = { 0, 0, (SHORT)(ScreenWidth - 1), (SHORT)(ScreenHeight - 1) };
+	SetConsoleWindowInfo(Console, TRUE, &rect);          
+	COORD bufferSize = { (SHORT)ScreenWidth, (SHORT)ScreenHeight };
+	SetConsoleScreenBufferSize(Console, bufferSize); 
     
     // Assets
 	tetrimonos[0].append(L"..X.");
@@ -69,21 +82,19 @@ int main() {
 		}
 	}
 
-	// creates a screen buffer
-	wchar_t *screen = new wchar_t[ScreenWidth * ScreenHeight];
-	for (int i = 0; i < ScreenWidth * ScreenHeight; i++) screen[i] = L' ';
-	HANDLE Console = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
-	SetConsoleActiveScreenBuffer(Console);
-	DWORD dwBytesWritten = 0;
 
 	bool GameOver = false;
 	while (!GameOver) {
 		//drawing the field
-		
+		for (int i = 0; i < PlayfieldWidth; i++) {
+			for (int j = 0; j < PlayfieldHeight; j++) {
+				screen[(j + 2) * ScreenWidth + (i + 2)] = L" ABCDEFG=#"[pField[j * PlayfieldWidth + i]];
+			}
+		}
 
 
 		// display frame
-		WriteConsoleOutputCharacter(Console, screen, ScreenWidth * ScreenHeight, { 0,0 }, &dwBytesWritten);
+		WriteConsoleOutputCharacterW(Console, screen, ScreenWidth * ScreenHeight, { 0,0 }, &dwBytesWritten);
 	}
 	
 
