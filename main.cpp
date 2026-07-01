@@ -1,9 +1,12 @@
 #include <iostream>
+#include <Windows.h> 
 using namespace std;
 
 wstring tetrimonos[7];
 int PlayfieldWidth = 12;
 int PlayfieldHeight = 18;
+int ScreenWidth = 80;
+int ScreenHeight = 30;
 unsigned char *pField = nullptr;
 
 int Rotation(int px, int py, int r) {
