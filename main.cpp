@@ -9,7 +9,7 @@ int ScreenWidth = 80; // width of the console
 int ScreenHeight = 30; // height of the console
 unsigned char *pField = nullptr;
 
-int Rotation(int px, int py, int r) {
+int Rotate(int px, int py, int r) {
     switch (r % 4) {
         case 0:
             return py * 4 + px;
@@ -22,6 +22,24 @@ int Rotation(int px, int py, int r) {
         
     }
     return 0;
+}
+
+bool DoesPieceFit(int Tetromino, int rotation, int posX, int posY) {
+	for (int px = 0; px < 4; px++) {
+			for (int py = 0; py < 4; py++) {
+				int position_index = Rotate(px, py, rotation);
+				int field_index = (posY + py) * PlayfieldWidth + (posX + px);
+
+				if (posX + px >= 0 && posX + px < PlayfieldWidth) {
+					if (posY + py >= 0 && posY + py < PlayfieldHeight) {
+						if (tetrimonos[Tetromino][position_index] == L'X' && pField[field_index] != 0)
+							return false;
+					}
+				}
+		}
+		
+	}
+	return true;
 }
 
 int main() {
@@ -85,6 +103,15 @@ int main() {
 
 	bool GameOver = false;
 	while (!GameOver) {
+
+		//timing
+
+		// input
+
+		// game logic
+
+		// output
+
 		//drawing the field
 		for (int i = 0; i < PlayfieldWidth; i++) {
 			for (int j = 0; j < PlayfieldHeight; j++) {
