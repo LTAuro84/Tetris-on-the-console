@@ -24,6 +24,7 @@ int Rotate(int px, int py, int r) {
     return 0;
 }
 
+
 bool DoesPieceFit(int Tetromino, int rotation, int posX, int posY) {
 	for (int px = 0; px < 4; px++) {
 			for (int py = 0; py < 4; py++) {
@@ -100,8 +101,12 @@ int main() {
 		}
 	}
 
-
 	bool GameOver = false;
+	int currentPiece = 0;
+	int currentRotation = 0;
+	int currentX = PlayfieldWidth / 2;
+	int currentY = 0;
+
 	while (!GameOver) {
 
 		//timing
@@ -116,6 +121,15 @@ int main() {
 		for (int i = 0; i < PlayfieldWidth; i++) {
 			for (int j = 0; j < PlayfieldHeight; j++) {
 				screen[(j + 2) * ScreenWidth + (i + 2)] = L" ABCDEFG=#"[pField[j * PlayfieldWidth + i]];
+			}
+		}
+
+		//drawing the current piece
+		for (int px = 0; px < 4; px++) {
+			for (int py = 0; py < 4; py++) {
+				if (tetrimonos[currentPiece][Rotate(px, py, currentRotation)] == L'X') {
+					screen[(currentY + py + 2) * ScreenWidth + (currentX + px + 2)] = currentPiece + 65;
+				}
 			}
 		}
 
