@@ -1,5 +1,7 @@
 #include <iostream>
 #include <Windows.h> 
+#include <thread>
+#include <chrono>
 using namespace std;
 
 wstring tetrimonos[7]; //tetris figures
@@ -110,7 +112,8 @@ int main() {
 	while (!GameOver) {
 
 		//timing
-
+		this_thread::sleep_for(50ms);
+		
 		// input
 
 		// game logic
