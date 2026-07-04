@@ -108,6 +108,7 @@ int main() {
 	int currentRotation = 0;
 	int currentX = PlayfieldWidth / 2;
 	int currentY = 0;
+	bool bKey[4];
 
 	while (!GameOver) {
 
@@ -115,9 +116,15 @@ int main() {
 		this_thread::sleep_for(50ms);
 		
 		// input
-
-		// game logic
-
+		for (int i = 0; i < 4; i++) {
+			bKey[i] = (0x8000 & GetAsyncKeyState((unsigned char)("\x27\x25\x28Z"[i]))) != 0;
+		}
+		// game logic 
+		if (bKey[1]) {
+			if (DoesPieceFit(currentPiece, currentRotation, currentX - 1, currentY)) {
+				currentX = currentX - 1; 
+			}
+		}
 		// output
 
 		//drawing the field
