@@ -109,6 +109,7 @@ int main() {
 	int currentX = PlayfieldWidth / 2;
 	int currentY = 0;
 	bool bKey[4];
+	bool rotateHold = false;
 
 	while (!GameOver) {
 
@@ -136,6 +137,11 @@ int main() {
 			if (DoesPieceFit(currentPiece, currentRotation, currentX, currentY + 1)) {
 				currentY = currentY + 1; 
 			}
+		}
+
+		if (bKey[3]) {
+			currentRotation += (!rotateHold && DoesPieceFit(currentPiece, currentRotation + 1, currentX, currentY)) ? 1 : 0;
+			
 		}
 		// output
 
