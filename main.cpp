@@ -111,10 +111,17 @@ int main() {
 	bool bKey[4];
 	bool rotateHold = false;
 
+	int speed = 20;
+	int speedCounter = 0;
+
+	bool forceDown = false;
+
 	while (!GameOver) {
 
 		//timing
 		this_thread::sleep_for(50ms);
+		speedCounter++;
+		forceDown = (speedCounter == speed);
 		
 		// input
 		for (int i = 0; i < 4; i++) {
@@ -145,6 +152,16 @@ int main() {
 		}
 			else {
 				rotateHold = true;
+			}
+		
+			if (forceDown) {
+				if (DoesPieceFit(currentPiece, currentRotation, currentX, currentY + 1)) {
+					currentY++;
+				}
+
+				else {
+					
+				}
 			}
 		// output
 
