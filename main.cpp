@@ -140,9 +140,12 @@ int main() {
 		}
 
 		if (bKey[3]) {
-			currentRotation += (!rotateHold && DoesPieceFit(currentPiece, currentRotation + 1, currentX, currentY)) ? 1 : 0;
-			
+			currentRotation += (rotateHold && DoesPieceFit(currentPiece, currentRotation + 1, currentX, currentY)) ? 1 : 0;
+			rotateHold = false;
 		}
+			else {
+				rotateHold = true;
+			}
 		// output
 
 		//drawing the field
