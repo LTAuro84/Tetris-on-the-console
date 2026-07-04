@@ -127,8 +127,14 @@ int main() {
 		}
 
 		if (bKey[0]) {
-			if (DoesPieceFit(currentPiece, currentRotation, currentX - 1, currentY)) {
+			if (DoesPieceFit(currentPiece, currentRotation, currentX + 1, currentY)) {
 				currentX = currentX + 1; 
+			}
+		}
+
+		if (bKey[2]) {
+			if (DoesPieceFit(currentPiece, currentRotation, currentX, currentY + 1)) {
+				currentY = currentY + 1; 
 			}
 		}
 		// output
