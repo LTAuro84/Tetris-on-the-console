@@ -160,7 +160,15 @@ int main() {
 				}
 
 				else {
+
+					//choosing the next piece in random
+					currentX = PlayfieldWidth / 2;
+					currentY = 0;
+					currentRotation = 0;
+					currentPiece = rand() % 7;
 					
+					//if the piece does not fit
+					GameOver = !DoesPieceFit(currentPiece, currentRotation, currentX, currentY);
 				}
 			}
 		// output
