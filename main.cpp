@@ -231,8 +231,11 @@ int main() {
 						pField[px] = 0;
 					}
 				}
+				
 				Lines.clear();
 			}
+
+			
 		}
 
 
