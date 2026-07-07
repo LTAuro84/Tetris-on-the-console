@@ -169,6 +169,21 @@ int main() {
 							}
 						}
 					}
+
+					for (int py = 0; py < 4; py++) {
+						if (currentY + py < PlayfieldHeight - 1) {
+							bool line = true;
+							for (int px = 1; px < PlayfieldWidth - 1; px++) {
+								line &= (pField[(currentY + py) * PlayfieldWidth + px]) != 0;
+							}
+
+							if (line) {
+								for (int px = 1; px < PlayfieldWidth - 1; px++) {
+									pField[(currentY + py) * PlayfieldWidth + px] = 8;
+								}
+							}
+						}
+					}
 					//choosing the next piece in random
 					currentX = PlayfieldWidth / 2;
 					currentY = 0;
