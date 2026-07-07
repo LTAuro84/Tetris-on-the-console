@@ -178,6 +178,8 @@ int main() {
 					//if the piece does not fit
 					GameOver = !DoesPieceFit(currentPiece, currentRotation, currentX, currentY);
 				}
+
+				speedCounter = 0;
 			}
 		// output
 
