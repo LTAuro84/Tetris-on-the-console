@@ -160,7 +160,15 @@ int main() {
 				}
 
 				else {
-
+					
+					//locking the piece in the field when it cannot go down anymore
+					for (int px = 0; px < 4; px++) {
+						for (int py = 0; py < 4; py++) {
+							if (tetrimonos[currentPiece][Rotate(px, py, currentRotation)] == L'X') {
+								pField[(currentY + py) * PlayfieldWidth + (currentX + px)] = currentPiece + 1;
+							}
+						}
+					}
 					//choosing the next piece in random
 					currentX = PlayfieldWidth / 2;
 					currentY = 0;
