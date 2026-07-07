@@ -2,6 +2,7 @@
 #include <Windows.h> 
 #include <thread>
 #include <chrono>
+#include <vector>
 using namespace std;
 
 wstring tetrimonos[7]; //tetris figures
@@ -116,6 +117,8 @@ int main() {
 
 	bool forceDown = false;
 
+	vector<int> Lines;
+
 	while (!GameOver) {
 
 		//timing
@@ -176,7 +179,8 @@ int main() {
 							for (int px = 1; px < PlayfieldWidth - 1; px++) {
 								line &= (pField[(currentY + py) * PlayfieldWidth + px]) != 0;
 							}
-
+							
+							// 8 represents the equal symbol
 							if (line) {
 								for (int px = 1; px < PlayfieldWidth - 1; px++) {
 									pField[(currentY + py) * PlayfieldWidth + px] = 8;
@@ -212,6 +216,11 @@ int main() {
 					screen[(currentY + py + 2) * ScreenWidth + (currentX + px + 2)] = currentPiece + 65;
 				}
 			}
+		}
+
+		if (!Lines.empty()) {
+			WriteConsoleOutputCharacterW(Console, screen, ScreenWidth * ScreenHeight, { 0,0 }, &dwBytesWritten);
+			this_thread::sleep_for(400ms);
 		}
 
 
