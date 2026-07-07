@@ -212,7 +212,6 @@ int main() {
 
 				speedCounter = 0;
 			}
-		// output
 
 		//drawing the field
 		for (int i = 0; i < PlayfieldWidth; i++) {
@@ -229,6 +228,9 @@ int main() {
 				}
 			}
 		}
+
+		//draw score
+		swprintf(&screen[2 * ScreenWidth + PlayfieldWidth + 6], L"SCORE: %8d", score);
 
 		if (!Lines.empty()) {
 			WriteConsoleOutputCharacterW(Console, screen, ScreenWidth * ScreenHeight, { 0,0 }, &dwBytesWritten);
@@ -252,6 +254,11 @@ int main() {
 		// display frame
 		WriteConsoleOutputCharacterW(Console, screen, ScreenWidth * ScreenHeight, { 0,0 }, &dwBytesWritten);
 	}
+
+	// GAME OVER !!!
+	CloseHandle(Console);
+	cout << "Game over!! Score: " << score << endl;
+	system("pause");
 	
 
 	return 0;
