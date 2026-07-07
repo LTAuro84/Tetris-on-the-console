@@ -116,6 +116,8 @@ int main() {
 	int speedCounter = 0;
 
 	bool forceDown = false;
+	int pieceCount = 0;
+	int score = 0;
 
 	vector<int> Lines;
 
@@ -173,6 +175,11 @@ int main() {
 						}
 					}
 
+					pieceCount++;
+					if (pieceCount % 10 == 0) {
+						if (speed >= 10) speed--;
+					}
+
 					for (int py = 0; py < 4; py++) {
 						if (currentY + py < PlayfieldHeight - 1) {
 							bool line = true;
@@ -190,6 +197,9 @@ int main() {
 							}
 						}
 					}
+
+					score += 25;
+					if (!Lines.empty()) score += (1 << Lines.size()) * 100;
 					//choosing the next piece in random
 					currentX = PlayfieldWidth / 2;
 					currentY = 0;
