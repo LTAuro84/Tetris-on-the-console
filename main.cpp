@@ -184,6 +184,8 @@ int main() {
 							if (line) {
 								for (int px = 1; px < PlayfieldWidth - 1; px++) {
 									pField[(currentY + py) * PlayfieldWidth + px] = 8;
+
+									Lines.push_back(currentY + py);
 								}
 							}
 						}
@@ -221,6 +223,16 @@ int main() {
 		if (!Lines.empty()) {
 			WriteConsoleOutputCharacterW(Console, screen, ScreenWidth * ScreenHeight, { 0,0 }, &dwBytesWritten);
 			this_thread::sleep_for(400ms);
+
+			for (auto &v :Lines) {
+				for (int px = 1; px < PlayfieldWidth - 1; px++) {
+					for (int py = v; py > 0; py--) {
+						pField[py * PlayfieldWidth + px] = pField[(py - 1) * PlayfieldWidth + px];
+						pField[px] = 0;
+					}
+				}
+				Lines.clear();
+			}
 		}
 
 
