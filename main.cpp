@@ -5,7 +5,7 @@
 #include <vector>
 using namespace std;
 
-wstring tetrimonos[7]; //tetris figures
+uint16_t tetrimonos[7]; // tetris figures
 int PlayfieldWidth = 12; // width of the arena
 int PlayfieldHeight = 18; // height of the area
 int ScreenWidth = 80; // width of the console
@@ -36,7 +36,7 @@ bool DoesPieceFit(int Tetromino, int rotation, int posX, int posY) {
 
 				if (posX + px >= 0 && posX + px < PlayfieldWidth) {
 					if (posY + py >= 0 && posY + py < PlayfieldHeight) {
-						if (tetrimonos[Tetromino][position_index] == L'X' && pField[field_index] != 0)
+						if ((tetrimonos[Tetromino] >> position_index) & 1 && pField[field_index] != 0)
 							return false;
 					}
 				}
@@ -62,40 +62,14 @@ int main() {
 	SetConsoleScreenBufferSize(Console, bufferSize); 
     
     // Assets
-	tetrimonos[0].append(L"..X.");
-	tetrimonos[0].append(L"..X.");
-	tetrimonos[0].append(L"..X.");
-	tetrimonos[0].append(L"..X.");
-
-    tetrimonos[1].append(L"..X.");
-	tetrimonos[1].append(L".XX.");
-	tetrimonos[1].append(L".X..");
-	tetrimonos[1].append(L"....");
-
-    tetrimonos[2].append(L".X..");
-	tetrimonos[2].append(L".XX.");
-	tetrimonos[2].append(L"..X.");
-	tetrimonos[2].append(L"....");
-
-    tetrimonos[3].append(L"....");
-	tetrimonos[3].append(L".XX.");
-	tetrimonos[3].append(L".XX.");
-	tetrimonos[3].append(L"....");
-    
-    tetrimonos[4].append(L"..X.");
-	tetrimonos[4].append(L".XX.");
-	tetrimonos[4].append(L"..X.");
-	tetrimonos[4].append(L"....");
-
-    tetrimonos[5].append(L"....");
-	tetrimonos[5].append(L".XX.");
-	tetrimonos[5].append(L"..X.");
-	tetrimonos[5].append(L"..X.");
-
-    tetrimonos[6].append(L"....");
-	tetrimonos[6].append(L".XX.");
-	tetrimonos[6].append(L".X..");
-	tetrimonos[6].append(L".X..");
+	
+	tetrimonos[0] = 0x4444; 
+	tetrimonos[1] = 0x0264; 
+    tetrimonos[2] = 0x0462;
+	tetrimonos[3] = 0x0660; 
+	tetrimonos[4] = 0x0464; 
+	tetrimonos[5] = 0x4460;
+	tetrimonos[6] = 0x2260;
 
 	pField = new unsigned char[PlayfieldWidth * PlayfieldHeight]; // Create play field buffer
 	for (int i = 0; i < PlayfieldWidth; i++) {
@@ -169,7 +143,7 @@ int main() {
 					//locking the piece in the field when it cannot go down anymore
 					for (int px = 0; px < 4; px++) {
 						for (int py = 0; py < 4; py++) {
-							if (tetrimonos[currentPiece][Rotate(px, py, currentRotation)] == L'X') {
+							if ((tetrimonos[currentPiece] >> Rotate(px, py, currentRotation)) & 1) {
 								pField[(currentY + py) * PlayfieldWidth + (currentX + px)] = currentPiece + 1;
 							}
 						}
@@ -223,7 +197,7 @@ int main() {
 		//drawing the current piece
 		for (int px = 0; px < 4; px++) {
 			for (int py = 0; py < 4; py++) {
-				if (tetrimonos[currentPiece][Rotate(px, py, currentRotation)] == L'X') {
+				if ((tetrimonos[currentPiece] >> Rotate(px, py, currentRotation)) & 1) {
 					screen[(currentY + py + 2) * ScreenWidth + (currentX + px + 2)] = currentPiece + 65;
 				}
 			}
