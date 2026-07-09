@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include <Windows.h> 
 #include <thread>
 #include <chrono>
@@ -47,6 +49,7 @@ bool DoesPieceFit(int Tetromino, int rotation, int posX, int posY) {
 }
 
 int main() {
+	srand(static_cast<unsigned int>(time(nullptr)));
 
 	// creates a screen buffer
 	wchar_t *screen = new wchar_t[ScreenWidth * ScreenHeight];
@@ -79,7 +82,7 @@ int main() {
 	}
 
 	bool GameOver = false;
-	int currentPiece = 0;
+	int currentPiece = rand() % 7;
 	int currentRotation = 0;
 	int currentX = PlayfieldWidth / 2;
 	int currentY = 0;
@@ -214,13 +217,16 @@ int main() {
 				for (int px = 1; px < PlayfieldWidth - 1; px++) {
 					for (int py = v; py > 0; py--) {
 						pField[py * PlayfieldWidth + px] = pField[(py - 1) * PlayfieldWidth + px];
-						pField[px] = 0;
+						
 					}
+
+					pField[px] = 0;
 				}
 				
-				Lines.clear();
+				
 			}
 
+			Lines.clear();
 			
 		}
 
